@@ -78,7 +78,7 @@ public class SignInActivity extends AppCompatActivity {
                 progressDialog.dismiss(); // Hide loading
                 Intent intent = new Intent(SignInActivity.this, SignUpActivity.class);
                 startActivity(intent);
-            }, 1500);    // Delay for 1.5 seconds before starting SignUpActivity
+            }, 1000);    // Delay for 1.5 seconds before starting SignUpActivity
         });
     }
 

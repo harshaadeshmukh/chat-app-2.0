@@ -1,6 +1,7 @@
 package com.example.chatt_application.activities;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -220,6 +221,10 @@ public class ChatActivity extends BaseActivity {
         {
             sendMessage();
         });
+
+
+
+
     }
 
 

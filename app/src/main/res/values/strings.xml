@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">chatt_application</string>
+    <string name="app_name">ChatApp²⋅⁰</string>
+
     <string name="create_account_text">New user? <font color='#FF0000'>Create an account</font></string>
     <string name="create_login_text">Already have an account? <font color='#007BFF'>Sign In</font></string>
 

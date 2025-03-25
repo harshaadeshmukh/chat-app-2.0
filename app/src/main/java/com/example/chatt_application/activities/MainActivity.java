@@ -1,9 +1,11 @@
 package com.example.chatt_application.activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -70,6 +72,21 @@ public class MainActivity extends BaseActivity implements ConversionListener {
         binding.fabNewChat.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), UsersActivity.class)));
 
 
+        binding.imageProfile.setOnClickListener(v -> {
+            ProgressDialog progressDialog = new ProgressDialog(MainActivity.this);
+            progressDialog.setMessage("Loading...");
+            progressDialog.setCancelable(false); // Prevents user from dismissing it
+            progressDialog.show();
+
+            new Handler().postDelayed(() -> {
+                progressDialog.dismiss(); // Hide dialog
+                Intent intent = new Intent(MainActivity.this, ShowProfileActivity.class);
+                startActivity(intent);
+            }, 1000);
+        });
+
+
+
     }
 
     private void loadUserDetails() {
@@ -98,7 +115,12 @@ public class MainActivity extends BaseActivity implements ConversionListener {
             showToast("Error decoding image: " + e.getMessage());
             Log.e("ImageLoad", "Exception: " + e.getMessage());
         }
+
+
+       // showProfile();
     }
+
+
 
     private void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
