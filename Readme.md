@@ -1,7 +1,7 @@
 # ChatApp²⋅⁰
 
 ## 📌 Overview
-Chat App 2.0 is a real-time messaging application built using **Android Studio** and **Firebase**. It enables users to send text messages, update profile names, and connect with friends through phone numbers.
+ChatApp²⋅⁰ is a real-time messaging application built using **Android Studio** and **Firebase**. It enables users to send text messages, update profile names, and connect with friends through phone numbers.
 
 ## 🚀 Features
 - 🔹 **User Authentication** (Login & Sign-up using Firebase Authentication)
@@ -58,7 +58,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📬 Contact
 👤 **Harshad Deshmukh**  
-📧 Email: [your-email@example.com](mailto:your-email@example.com)  
+📧 Email: [your-email@example.com](mailto:your-harshad.deshmukh82004@gmail.com)  
 🌐 Portfolio: [https://harshaadeshmukh.github.io/Portfolio/](https://harshaadeshmukh.github.io/Portfolio/)  
 📍 GitHub: [@harshaadeshmukh](https://github.com/harshaadeshmukh)
 
