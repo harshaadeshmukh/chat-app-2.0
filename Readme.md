@@ -1,4 +1,4 @@
-# Chat App 2.0
+# ChatApp²⋅⁰
 
 ## 📌 Overview
 Chat App 2.0 is a real-time messaging application built using **Android Studio** and **Firebase**. It enables users to send text messages, update profile names, and connect with friends through phone numbers.
