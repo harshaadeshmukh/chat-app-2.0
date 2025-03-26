@@ -1,5 +1,6 @@
 package com.example.chatt_application.activities;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -11,10 +12,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AlertDialog;
 
-import com.example.chatt_application.R;
 import com.example.chatt_application.adapters.RecentConversationsAdapter;
+import com.example.chatt_application.adapters.UserAdapter;
 import com.example.chatt_application.databinding.ActivityMainBinding;
 import com.example.chatt_application.listeners.ConversionListener;
 import com.example.chatt_application.models.ChatMessage;
@@ -42,6 +43,8 @@ public class MainActivity extends BaseActivity implements ConversionListener {
     private List<ChatMessage> conversations;
     private RecentConversationsAdapter recentConversationsAdapter;
     private FirebaseFirestore database;
+//    private UserAdapter userAdapter;
+//    private List<User>
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,10 +68,41 @@ public class MainActivity extends BaseActivity implements ConversionListener {
         binding.conversationRecyclerView.setAdapter(recentConversationsAdapter);
         database = FirebaseFirestore.getInstance();
 
+
+
+
+        //  fetchRatings();  // Fetch ratings on app start
+
     }
 
+//    @SuppressLint("NotifyDataSetChanged")
+//    private void fetchRatings() {
+//        database.collection("users")  // Access the "users" collection
+//                .get()
+//                .addOnSuccessListener(usersSnapshot -> {
+//                    ratings.clear(); // Clear existing list before adding new data
+//
+//                    for (DocumentSnapshot userDoc : usersSnapshot.getDocuments()) {
+//                        if (userDoc.contains("rating") && userDoc.contains("review") && userDoc.contains("userId")) {
+//                            // Ensure all fields exist
+//                            double ratingValue = userDoc.getDouble("rating");
+//                            String reviewText = userDoc.getString("review");
+//                            String userId = userDoc.getString("userId");
+//
+//                            if (ratingValue >= 1 && ratingValue <= 5) {  // Validate rating range
+//                                ratings.add(new Rating((float) ratingValue, reviewText, userId));
+//                            }
+//                        }
+//                    }
+//
+//                    ratingAdapter.notifyDataSetChanged(); // Update RecyclerView
+//                })
+//                .addOnFailureListener(e -> Log.e("Firestore", "Error fetching ratings", e));
+//    }
+
+
     private void setListeners() {
-        binding.imageSignUp.setOnClickListener(v -> SignOut());
+        binding.imageSignUp.setOnClickListener(v -> showSignOutDialog());
         binding.fabNewChat.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), UsersActivity.class)));
 
 
@@ -84,10 +118,32 @@ public class MainActivity extends BaseActivity implements ConversionListener {
                 startActivity(intent);
             }, 1000);
         });
-
-
-
     }
+
+    private void showSignOutDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Sign Out")
+                .setMessage("Are you sure you want to log out of your account?")
+                .setPositiveButton("Yes", (dialog, which) -> {
+                    // Show progress dialog
+                    ProgressDialog progressDialog = new ProgressDialog(this);
+                    progressDialog.setMessage("Signing out...");
+                    progressDialog.setCancelable(false); // Prevents user from dismissing it
+                    progressDialog.show();
+
+                    // Delay sign-out by 1 second
+                    new Handler().postDelayed(() -> {
+                        progressDialog.dismiss(); // Hide progress dialog
+                        SignOut(); // Perform sign-out
+                    }, 1000);
+                })
+                .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
+                .setCancelable(false); // Prevents dismissal by clicking outside or pressing back
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
 
     private void loadUserDetails() {
         binding.textName.setText(preferenceManager.getString(Constants.KEY_NAME));
@@ -117,9 +173,8 @@ public class MainActivity extends BaseActivity implements ConversionListener {
         }
 
 
-       // showProfile();
+        // showProfile();
     }
-
 
 
     private void showToast(String message) {
@@ -133,6 +188,7 @@ public class MainActivity extends BaseActivity implements ConversionListener {
     }
 
 
+    @SuppressLint("NotifyDataSetChanged")
     private final EventListener<QuerySnapshot> eventListener = (value, error) -> {
         if (error != null) {
             return;

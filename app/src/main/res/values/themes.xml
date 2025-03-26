@@ -4,7 +4,7 @@
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="colorPrimary">@color/primary</item>
-        <item name="android:statusBarColor" tools:targetApli = "l">
+        <item name="android:statusBarColor" tools:targetApli="l">
             @color/primary
         </item>
     </style>

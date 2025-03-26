@@ -13,13 +13,12 @@
     tools:context=".activities.ShowProfileActivity">
 
 
-
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imageBack"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_marginTop="19dp"
         android:layout_marginStart="19dp"
+        android:layout_marginTop="19dp"
         android:background="@drawable/background_icon"
         android:padding="12dp"
         android:src="@drawable/ic_back"
@@ -41,6 +40,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="HardcodedText,MissingConstraints" />
+
+
+<!--        <androidx.appcompat.widget.AppCompatImageView-->
+<!--            android:id="@+id/imageUserIn"-->
+<!--            android:layout_width="48dp"-->
+<!--            android:layout_height="48dp"-->
+<!--            android:layout_marginTop="16dp"-->
+<!--            android:layout_marginEnd="16dp"-->
+<!--            android:background="@drawable/background_icon"-->
+<!--            android:padding="12dp"-->
+<!--            android:src="@drawable/outline_info_24"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:tint="@color/white" />-->
+
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -191,35 +205,33 @@
                 android:src="@drawable/baseline_visibility_off_24" />
         </RelativeLayout>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
 
-        <!--        <FrameLayout-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginTop="20dp"-->
-        <!--            android:animateLayoutChanges="true">-->
+            android:padding="20dp">
 
-        <!--            <com.google.android.material.button.MaterialButton-->
-        <!--                android:id="@+id/buttonUpdate"-->
-        <!--                android:layout_width="match_parent"-->
-        <!--                android:layout_height="50dp"-->
-        <!--                android:text="Update"-->
-        <!--                android:textAllCaps="true"-->
-        <!--                android:textColor="@color/primary_text"-->
-        <!--                android:textSize="17sp"-->
-        <!--                android:textStyle="bold"-->
-        <!--                app:cornerRadius="8dp"-->
-        <!--                android:backgroundTint="@color/white"-->
-        <!--                tools:ignore="HardcodedText" />-->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:text="@string/rate_the_chatapp"
+                android:textAllCaps="true"
+                android:textColor="@color/primary_dark"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                app:cornerRadius="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <!--            <ProgressBar-->
-        <!--                android:id="@+id/progressBar"-->
-        <!--                android:layout_width="25dp"-->
-        <!--                android:layout_height="25dp"-->
-        <!--                android:layout_gravity="center"-->
-        <!--                android:visibility="invisible" />-->
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-        <!--        </FrameLayout>-->
 
     </LinearLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

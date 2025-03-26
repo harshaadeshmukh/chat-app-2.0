@@ -42,10 +42,6 @@ public class SignUpActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private PreferenceManager preferenceManager;
 
-
-    EditText inputPassword, inputConfirmPassword;
-    ImageView togglePassword, toggleConfirmPassword;
-
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,6 +138,7 @@ public class SignUpActivity extends AppCompatActivity {
         user.put(Constants.KEY_NAME, binding.inputName.getText().toString());
         user.put(Constants.KEY_EMAIL, binding.inputEmail.getText().toString());
         user.put(Constants.KEY_PASSWORD, binding.inputPassword.getText().toString());
+
         user.put(Constants.KEY_IMAGE, encodedImage);
 
         database.collection(Constants.KEY_COLLECTION_USERS)
@@ -151,6 +148,7 @@ public class SignUpActivity extends AppCompatActivity {
                     preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN, true);
                     preferenceManager.putString(Constants.KEY_USER_ID, documentReference.getId());
                     preferenceManager.putString(Constants.KEY_NAME, binding.inputName.getText().toString());
+
                     preferenceManager.putString(Constants.KEY_IMAGE, encodedImage);
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

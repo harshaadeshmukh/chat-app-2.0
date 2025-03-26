@@ -4,9 +4,10 @@
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
         <item name="colorPrimary">@color/primary</item>
-        <item name="android:statusBarColor" tools:targetApli = "l">
+        <item name="android:statusBarColor" tools:targetApli="l">
             @color/primary
         </item>
     </style>
+
     <style name="Theme.Chatt_application" parent="Base.Theme.Chatt_application" />
 </resources>
