@@ -1,38 +1,59 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/background_rating_rounded"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="4dp">
 
     <TextView
         android:id="@+id/textUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="User Name"
-        android:textStyle="bold"
-        android:textSize="16sp" />
+        android:layout_marginStart="7dp"
+        android:fontFamily="sans-serif-smallcaps"
+        android:text="User"
+        android:textColor="@color/primary_text"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:layout_height="match_parent">
     <RatingBar
         android:id="@+id/ratingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:isIndicator="true"
         android:numStars="5"
-        android:stepSize="0.5"
-        android:isIndicator="true" />
 
-    <TextView
-        android:id="@+id/textReview"
-        android:layout_marginStart="12dp"
-        android:layout_width="wrap_content"
+        android:stepSize="0.5" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="User Review"
-        android:textSize="14sp"
-        android:paddingTop="5dp" />
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="5dp"-->
+<!--            android:fontFamily="sans-serif-smallcaps"-->
+<!--            android:text="Feedback : "-->
+<!--            android:textColor="@color/primary_text"-->
+<!--            android:textSize="15dp"-->
+<!--            android:textStyle="bold" />-->
+
+        <TextView
+            android:id="@+id/textReview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="User Review"
+            android:textColor="@color/primary_text"
+            android:textSize="14sp"
+            android:layout_marginStart="7dp"
+            android:textStyle="bold" />
     </LinearLayout>
 </LinearLayout>

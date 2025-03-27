@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.chatt_application.R;
 
@@ -204,6 +205,13 @@ public class ChatActivity extends BaseActivity {
 
 
     private void sendMessage() {
+        String messageText = binding.inputMessage.getText().toString().trim(); // Trim spaces
+
+        if (messageText.isEmpty()) {
+            Toast.makeText(this, "Message cannot be empty", Toast.LENGTH_SHORT).show();
+            return; // Do not send empty or space-only messages
+        }
+
         HashMap<String, Object> message = new HashMap<>();
 
         message.put(Constants.KEY_SENDER_ID, preferenceManager.getString(Constants.KEY_USER_ID));
@@ -316,12 +324,6 @@ public class ChatActivity extends BaseActivity {
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
     }
 
-    //    private void loadReciverDetails() {
-//
-//
-//        receiverUser = (User) getIntent().getSerializableExtra(Constants.KEY_USER);
-//        binding.textName.setText(receiverUser.name);
-//    }
     private void loadReciverDetails() {
         receiverUser = (User) getIntent().getSerializableExtra(Constants.KEY_USER);
         binding.textName.setText(receiverUser.name);

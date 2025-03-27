@@ -175,6 +175,7 @@ public class ShowProfileActivity extends AppCompatActivity {
                                 startActivity(intent))
                         .addOnFailureListener(e -> Toast.makeText(this, "Failed to submit review: " + e.getMessage(), Toast.LENGTH_SHORT).show());
             }
+            finish();
         }).setCancelable(false);
 
         builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss()).setCancelable(false);

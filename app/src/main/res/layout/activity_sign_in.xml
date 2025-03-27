@@ -1,15 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clipToPadding="false"
-    android:overScrollMode="never"
+    android:orientation="vertical"
     android:background="@color/white"
-
-    android:padding="20dp"
-    android:scrollbars="none"
     tools:context=".activities.SignInActivity">
 
     <LinearLayout
@@ -17,17 +13,17 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:gravity="center_horizontal"
+        android:padding="20dp"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:text="Welcome back!"
             android:textColor="@color/primary_text"
             android:textSize="23sp"
-            android:textStyle="bold"
-            tools:ignore="HardcodedText" />
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -36,9 +32,7 @@
             android:text="Login to continue"
             android:textColor="@color/secondary_text"
             android:textSize="15sp"
-            android:textStyle="bold"
-            tools:ignore="HardcodedText" />
-
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/inputEmail"
@@ -53,25 +47,7 @@
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
             android:textColor="@color/primary_text"
-            android:textSize="18sp"
-            tools:ignore="HardcodedText" />
-
-
-        <!--        <EditText-->
-        <!--            android:id="@+id/inputPassword"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="48dp"-->
-        <!--            android:layout_marginTop="19dp"-->
-        <!--            android:hint="Password"-->
-        <!--            android:background="@drawable/background_input"-->
-        <!--            android:imeOptions="actionNext"-->
-        <!--            android:importantForAutofill="no"-->
-        <!--            android:inputType="textPassword"-->
-        <!--            android:paddingStart="15dp"-->
-        <!--            android:paddingEnd="15dp"-->
-        <!--            android:textColor="@color/primary_text"-->
-        <!--            android:textSize="18sp"-->
-        <!--            tools:ignore="HardcodedText" />-->
+            android:textSize="18sp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -90,8 +66,7 @@
                 android:paddingStart="15dp"
                 android:paddingEnd="50dp"
                 android:textColor="@color/primary_text"
-                android:textSize="18sp"
-                tools:ignore="HardcodedText" />
+                android:textSize="18sp" />
 
             <ImageView
                 android:id="@+id/passwordToggle"
@@ -101,18 +76,14 @@
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="15dp"
                 android:contentDescription="Toggle Password Visibility"
-                android:src="@drawable/baseline_visibility_off_24"
-                tools:ignore="HardcodedText" />
+                android:src="@drawable/baseline_visibility_off_24" />
         </RelativeLayout>
-
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
-            android:animateLayoutChanges="true"
-            android:orientation="horizontal">
-
+            android:animateLayoutChanges="true">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonSignin"
@@ -123,8 +94,7 @@
                 android:textColor="@color/white"
                 android:textSize="17sp"
                 android:textStyle="bold"
-                app:cornerRadius="8dp"
-                tools:ignore="HardcodedText" />
+                app:cornerRadius="8dp" />
 
             <ProgressBar
                 android:id="@+id/progressBar"
@@ -132,9 +102,7 @@
                 android:layout_height="25dp"
                 android:layout_gravity="center"
                 android:visibility="invisible" />
-
         </FrameLayout>
-
 
         <TextView
             android:id="@+id/textContentCreateNewAcc"
@@ -144,10 +112,58 @@
             android:text="@string/create_account_text"
             android:textColor="@color/primary"
             android:textSize="15sp"
-            android:textStyle="bold"
-            tools:ignore="HardcodedText" />
+            android:textStyle="bold" />
+    </LinearLayout>
 
+    <!-- Review Section -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/background_content_bottom_review"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:text="What Our Users Say About ChatApp²⋅⁰ 🤗"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:gravity="center" />
+
+
+
+        <!-- Progress Layout wrapping RecyclerView -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:padding="14dp">
+
+            <!-- RecyclerView -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewReviews"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="vertical"
+                android:clipToPadding="false" />
+
+            <ProgressBar
+                android:id="@+id/progressBarReview"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:indeterminateTint="@color/white"
+                tools:ignore="DuplicateIds" />
+
+        </FrameLayout>
 
     </LinearLayout>
 
-</ScrollView>
+</LinearLayout>

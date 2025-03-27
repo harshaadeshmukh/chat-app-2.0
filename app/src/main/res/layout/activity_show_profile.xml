@@ -31,29 +31,30 @@
         android:id="@+id/information"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
         android:text="Personal Info"
         android:textColor="@color/white"
         android:textSize="23sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/UpdateInfoBtn"
+        app:layout_constraintStart_toStartOf="@id/imageBack"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="HardcodedText,MissingConstraints" />
 
 
-<!--        <androidx.appcompat.widget.AppCompatImageView-->
-<!--            android:id="@+id/imageUserIn"-->
-<!--            android:layout_width="48dp"-->
-<!--            android:layout_height="48dp"-->
-<!--            android:layout_marginTop="16dp"-->
-<!--            android:layout_marginEnd="16dp"-->
-<!--            android:background="@drawable/background_icon"-->
-<!--            android:padding="12dp"-->
-<!--            android:src="@drawable/outline_info_24"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:tint="@color/white" />-->
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/UpdateInfoBtn"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="19dp"
+        android:background="@drawable/background_icon"
+        android:padding="12dp"
+        android:src="@drawable/ic_edit_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/white" />
 
 
     <LinearLayout
