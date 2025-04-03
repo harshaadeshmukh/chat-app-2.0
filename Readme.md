@@ -58,7 +58,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📬 Contact
 👤 **Harshad Deshmukh**  
-📧 Email: [your-email@example.com](mailto:your-harshad.deshmukh82004@gmail.com)  
+📧 Email: [harshad.deshmukh82004@example.com](mailto:your-harshad.deshmukh82004@gmail.com)  
 🌐 Portfolio: [https://harshaadeshmukh.github.io/Portfolio/](https://harshaadeshmukh.github.io/Portfolio/)  
 📍 GitHub: [@harshaadeshmukh](https://github.com/harshaadeshmukh)
 
