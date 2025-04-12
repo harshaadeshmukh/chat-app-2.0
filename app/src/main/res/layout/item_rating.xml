@@ -1,10 +1,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp"
+    android:layout_marginBottom="9dp"
     android:background="@drawable/background_rating_rounded"
     android:orientation="vertical"
-    android:padding="4dp">
+    android:padding="3dp">
 
     <TextView
         android:id="@+id/textUserName"
@@ -14,36 +14,26 @@
         android:fontFamily="sans-serif-smallcaps"
         android:text="User"
         android:textColor="@color/primary_text"
-        android:textSize="16sp"
+        android:textSize="13sp"
         android:textStyle="bold" />
 
     <RatingBar
         android:id="@+id/ratingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="3dp"
         android:isIndicator="true"
         android:numStars="5"
-
-        android:stepSize="0.5" />
-
+        android:stepSize="0.5"
+        android:scaleX="0.85"
+        android:scaleY="0.85" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal">
-
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="5dp"-->
-<!--            android:fontFamily="sans-serif-smallcaps"-->
-<!--            android:text="Feedback : "-->
-<!--            android:textColor="@color/primary_text"-->
-<!--            android:textSize="15dp"-->
-<!--            android:textStyle="bold" />-->
 
         <TextView
             android:id="@+id/textReview"
@@ -52,8 +42,8 @@
             android:fontFamily="sans-serif-smallcaps"
             android:text="User Review"
             android:textColor="@color/primary_text"
-            android:textSize="14sp"
-            android:layout_marginStart="7dp"
+            android:textSize="12sp"
+            android:layout_marginStart="5dp"
             android:textStyle="bold" />
     </LinearLayout>
 </LinearLayout>

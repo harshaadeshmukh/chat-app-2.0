@@ -9,6 +9,7 @@ import android.graphics.Color;
 
 import android.graphics.Typeface;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -34,8 +35,12 @@ import androidx.core.content.ContextCompat;
 import com.example.chatt_application.R;
 import com.example.chatt_application.utilites.Constants;
 import com.example.chatt_application.utilites.PreferenceManager;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.WriteBatch;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,7 +49,7 @@ public class ShowProfileActivity extends AppCompatActivity {
     private PreferenceManager preferenceManager;
     private TextView showName, showEmail, showPassword;
     private ImageView imageProfile, togglePassword;
-    private View imageBack;
+    private View imageBack, imageUpdateProfile;
     private boolean isPasswordVisible = false;
     private FirebaseFirestore database;
     private Button button;
@@ -62,10 +67,24 @@ public class ShowProfileActivity extends AppCompatActivity {
         imageProfile = findViewById(R.id.imageProfile);
         togglePassword = findViewById(R.id.togglePassword);
         imageBack = findViewById(R.id.imageBack);
+        imageUpdateProfile = findViewById(R.id.UpdateInfoBtn);
+
+
         loadUserDetails();
 
         togglePassword.setOnClickListener(v -> togglePasswordVisibility());
-        imageBack.setOnClickListener(v -> onBackPressed());
+        imageBack.setOnClickListener(v -> {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        });
+
+
+        imageUpdateProfile.setOnClickListener(v -> {
+            Intent intent = new Intent(this, UpdateUserActivity.class);
+            startActivity(intent);
+            finish();
+        });
 
         button = findViewById(R.id.button);
 
@@ -73,7 +92,9 @@ public class ShowProfileActivity extends AppCompatActivity {
         button.setOnClickListener(view -> {
             showAlertDialog();
         });
+
     }
+
 
     @SuppressLint("SetTextI18n")
     private void showAlertDialog() {
@@ -90,7 +111,7 @@ public class ShowProfileActivity extends AppCompatActivity {
 
 
         ImageView imageView = new ImageView(this);
-        imageView.setImageResource(R.drawable.meetme);
+        imageView.setImageResource(R.drawable.applogo);
         imageView.setLayoutParams(new LinearLayout.LayoutParams(200, 200)); // Set size
 
 
@@ -141,8 +162,7 @@ public class ShowProfileActivity extends AppCompatActivity {
             ratingMessageTextView.setText(getRatingMessage(rating));
         });
 
-        builder
-                .setPositiveButton("Submit", (dialog, which) -> {
+        builder.setPositiveButton("Submit", (dialog, which) -> {
             float userRating = ratingBar.getRating();
             String feedback = input.getText().toString().trim();
 
@@ -156,8 +176,8 @@ public class ShowProfileActivity extends AppCompatActivity {
                 return;
             }
 
-        //    Toast.makeText(this, "Thank you for your feedback!", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this , FeedbackSplashActivity.class);
+            //    Toast.makeText(this, "Thank you for your feedback!", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, FeedbackSplashActivity.class);
 
             // Save rating and feedback to Firestore
             String userId = preferenceManager.getString(Constants.KEY_USER_ID);
@@ -166,14 +186,10 @@ public class ShowProfileActivity extends AppCompatActivity {
                 reviewData.put("rating", userRating);
                 reviewData.put("feedback", feedback);
 
-                database.collection(Constants.KEY_COLLECTION_USERS)
-                        .document(userId).
-                        update(reviewData)
-                        .addOnSuccessListener(aVoid ->
+                database.collection(Constants.KEY_COLLECTION_USERS).document(userId).update(reviewData).addOnSuccessListener(aVoid ->
 
-                                //  Toast.makeText(this, "Review submitted!", Toast.LENGTH_SHORT).show());
-                                startActivity(intent))
-                        .addOnFailureListener(e -> Toast.makeText(this, "Failed to submit review: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                        //  Toast.makeText(this, "Review submitted!", Toast.LENGTH_SHORT).show());
+                        startActivity(intent)).addOnFailureListener(e -> Toast.makeText(this, "Failed to submit review: " + e.getMessage(), Toast.LENGTH_SHORT).show());
             }
             finish();
         }).setCancelable(false);
@@ -200,102 +216,6 @@ public class ShowProfileActivity extends AppCompatActivity {
         }
     }
 
-
-//    @SuppressLint("SetTextI18n")
-//    private void showAlertDialog() {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//   //     builder.setTitle(title);
-//    //    builder.setMessage(message);
-//
-//        // Create a vertical LinearLayout
-//        LinearLayout layout = new LinearLayout(this);
-//        layout.setOrientation(LinearLayout.VERTICAL);
-//        layout.setPadding(50, 20, 50, 20);
-//
-//        // Create TextView
-//        TextView textView = new TextView(this);
-//        textView.setText("Give us Review");
-//        textView.setTextSize(16);
-//        textView.setPadding(0, 10, 0, 10);
-//
-//        // Create RatingBar
-//        RatingBar ratingBar = new RatingBar(this);
-//        ratingBar.setNumStars(5);
-//        ratingBar.setStepSize(1.0f);
-//        ratingBar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-//
-//        // Create EditText for user input
-//        EditText input = new EditText(this);
-//        textView.setText("What do you like about the app?");
-//        input.setHint("Enter your feedback...");
-//        input.setInputType(InputType.TYPE_CLASS_TEXT);
-//
-//        // Add views to layout
-//        layout.addView(textView);
-//        layout.addView(ratingBar);
-//        layout.addView(input);
-//
-//        builder.setView(layout);
-//
-//        builder.setPositiveButton("Submit", (dialog, which) -> {
-//            float userRating = ratingBar.getRating();
-//            String feedback = input.getText().toString().trim();
-//
-//            if (userRating == 0) {
-//                Toast.makeText(this, "Please provide a rating!", Toast.LENGTH_SHORT).show();
-//                return;
-//            }
-//
-//            if (feedback.isEmpty()) {
-//                Toast.makeText(this, "Feedback cannot be empty!", Toast.LENGTH_SHORT).show();
-//                return;
-//            }
-//
-//            Toast.makeText(this, "Thank you for your feedback!", Toast.LENGTH_SHORT).show();
-//
-//            // Here, you can save the rating and feedback to Firestore
-//            String userId = preferenceManager.getString(Constants.KEY_USER_ID);
-//            if (userId != null && !userId.isEmpty()) {
-//                Map<String, Object> reviewData = new HashMap<>();
-//                reviewData.put("rating", userRating);
-//                reviewData.put("feedback", feedback);
-//
-//                database.collection(Constants.KEY_COLLECTION_USERS).document(userId)
-//                        .update(reviewData)
-//                        .addOnSuccessListener(aVoid -> Toast.makeText(this, "Review submitted!", Toast.LENGTH_SHORT).show())
-//                        .addOnFailureListener(e -> Toast.makeText(this, "Failed to submit review: " + e.getMessage(), Toast.LENGTH_SHORT).show());
-//            }
-//        });
-//
-//        LayerDrawable stars = (LayerDrawable) ratingBar.getProgressDrawable();
-
-    /// / Change the filled stars to white
-//        stars.getDrawable(2).setColorFilter(Color.parseColor("#1C2E46"), PorterDuff.Mode.SRC_IN);
-//        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
-//
-//        builder.show();
-//    }
-
-
-    // Method to update the review text based on rating
-//    private void updateReviewText(float rating) {
-//        if (rating >= 4.5) {
-//            String s = "Outstanding! 🤩";
-//            textView.setText(s);
-//        } else if (rating >= 3.5) {
-//            String s = "Excellent! 😇";
-//            textView.setText(s);
-//        } else if (rating >= 2.5) {
-//            String s = "Nice effort! 😎";
-//            textView.setText(s);
-//        } else if (rating >= 1.5) {
-//            textView.setText("Needs improvement! 🤔");
-//        } else if (rating > 0) {
-//            textView.setText("Could be better! 🙂");
-//        } else {
-//            textView.setText("No ratings yet! 😕");
-//        }
-//    }
     private void loadUserDetails() {
         String userId = preferenceManager.getString(Constants.KEY_USER_ID);
 
@@ -365,4 +285,8 @@ public class ShowProfileActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 }

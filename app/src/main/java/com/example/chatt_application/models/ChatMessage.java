@@ -8,4 +8,6 @@ public class ChatMessage {
     public String message, dateTime;
     public Date dataObject;
     public String conversationId , conversationName , conversationImage;
+    public String conversationToken;
+
 }

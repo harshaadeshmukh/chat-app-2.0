@@ -17,13 +17,13 @@ import com.example.chatt_application.models.User;
 
 import java.util.List;
 
-public class RecentConversationsAdapter  extends RecyclerView.Adapter<RecentConversationsAdapter.ConversionViewHolder>{
+public class RecentConversationsAdapter extends RecyclerView.Adapter<RecentConversationsAdapter.ConversionViewHolder> {
 
 
-    private  final List<ChatMessage> chatMessages;
+    private final List<ChatMessage> chatMessages;
     private final ConversionListener conversionListener;
 
-    public RecentConversationsAdapter(List<ChatMessage> chatMessages , ConversionListener conversionListener) {
+    public RecentConversationsAdapter(List<ChatMessage> chatMessages, ConversionListener conversionListener) {
         this.chatMessages = chatMessages;
         this.conversionListener = conversionListener;
     }
@@ -52,17 +52,15 @@ public class RecentConversationsAdapter  extends RecyclerView.Adapter<RecentConv
         return chatMessages.size();
     }
 
-    class ConversionViewHolder extends RecyclerView.ViewHolder{
+    class ConversionViewHolder extends RecyclerView.ViewHolder {
         ItemContainerRecentConversionBinding binding;
 
-        ConversionViewHolder(ItemContainerRecentConversionBinding itemContainerRecentConversionBinding)
-        {
+        ConversionViewHolder(ItemContainerRecentConversionBinding itemContainerRecentConversionBinding) {
             super(itemContainerRecentConversionBinding.getRoot());
             binding = itemContainerRecentConversionBinding;
         }
 
-        void setData(ChatMessage chatMessage)
-        {
+        void setData(ChatMessage chatMessage) {
             binding.imageProfile.setImageBitmap(getConversationImage(chatMessage.conversationImage));
             binding.textName.setText(chatMessage.conversationName);
             binding.textRecentMessage.setText(chatMessage.message);
@@ -73,13 +71,12 @@ public class RecentConversationsAdapter  extends RecyclerView.Adapter<RecentConv
                 user.image = chatMessage.conversationImage;
                 conversionListener.onConversionClicked(user);
             });
-
-
         }
 
     }
+
     private Bitmap getConversationImage(String encodedImage) {
-        byte[] bytes = Base64.decode(encodedImage , Base64.DEFAULT);
-        return BitmapFactory.decodeByteArray(bytes ,0 , bytes.length);
+        byte[] bytes = Base64.decode(encodedImage, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
     }
 }

@@ -18,16 +18,21 @@ import java.util.List;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> {
 
-    private final List<User> users;
+    private List<User> users;
 
-    private static  UserListener userListener ;
+    private static UserListener userListener;
 
-    public UserAdapter(List<User> users , UserListener userListener)
-    {
+    public UserAdapter(List<User> users, UserListener userListener) {
         this.users = users;
         UserAdapter.userListener = userListener;
 
     }
+
+    public void updateList(List<User> newList) {
+        users = newList;
+        notifyDataSetChanged();
+    }
+
 
     @NonNull
     @Override
@@ -53,18 +58,16 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     }
 
 
-    static class UserViewHolder extends  RecyclerView.ViewHolder {
+    static class UserViewHolder extends RecyclerView.ViewHolder {
 
         ItemContainerUserBinding binding;
 
-        UserViewHolder(ItemContainerUserBinding itemContainerUserBinding)
-        {
+        UserViewHolder(ItemContainerUserBinding itemContainerUserBinding) {
             super(itemContainerUserBinding.getRoot());
             binding = itemContainerUserBinding;
         }
 
-        void setUserData(User user)
-        {
+        void setUserData(User user) {
             binding.textName.setText(user.name);
             binding.textEmail.setText(user.email);
             binding.imageProfile.setImageBitmap(getUserImage(user.image));
@@ -74,9 +77,12 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         }
     }
 
+
     private static Bitmap getUserImage(String encodedImage) {
-        byte[] bytes = Base64.decode(encodedImage , Base64.DEFAULT);
-        return BitmapFactory.decodeByteArray(bytes , 0 , bytes.length);
+        byte[] bytes = Base64.decode(encodedImage, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
     }
+
+
 }
 

@@ -25,6 +25,7 @@ import com.example.chatt_application.models.Review;
 import com.example.chatt_application.models.User;
 import com.example.chatt_application.utilites.Constants;
 import com.example.chatt_application.utilites.PreferenceManager;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -56,8 +57,6 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         preferenceManager = new PreferenceManager(getApplicationContext());
         setContentView(R.layout.activity_sign_in);
-
-
 
         if (preferenceManager.getBoolean(Constants.KEY_IS_SIGNED_IN)) {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -114,9 +113,9 @@ public class SignInActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         fetchReviews();
+
+
     }
-
-
 
     private void fetchReviews() {
 
@@ -143,7 +142,7 @@ public class SignInActivity extends AppCompatActivity {
                         Log.e("FirestoreError", "Error getting documents: ", task.getException());
                     }
 
-            binding.progressBarReview.setVisibility(View.INVISIBLE);
+                    binding.progressBarReview.setVisibility(View.INVISIBLE);
 
                 });
 
@@ -263,14 +262,8 @@ public class SignInActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         handler.post(scrollRunnable);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
         handler.removeCallbacks(scrollRunnable);
     }
-
 
 
 }

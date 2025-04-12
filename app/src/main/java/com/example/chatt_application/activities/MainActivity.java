@@ -69,37 +69,7 @@ public class MainActivity extends BaseActivity implements ConversionListener {
         database = FirebaseFirestore.getInstance();
 
 
-
-
-        //  fetchRatings();  // Fetch ratings on app start
-
     }
-
-//    @SuppressLint("NotifyDataSetChanged")
-//    private void fetchRatings() {
-//        database.collection("users")  // Access the "users" collection
-//                .get()
-//                .addOnSuccessListener(usersSnapshot -> {
-//                    ratings.clear(); // Clear existing list before adding new data
-//
-//                    for (DocumentSnapshot userDoc : usersSnapshot.getDocuments()) {
-//                        if (userDoc.contains("rating") && userDoc.contains("review") && userDoc.contains("userId")) {
-//                            // Ensure all fields exist
-//                            double ratingValue = userDoc.getDouble("rating");
-//                            String reviewText = userDoc.getString("review");
-//                            String userId = userDoc.getString("userId");
-//
-//                            if (ratingValue >= 1 && ratingValue <= 5) {  // Validate rating range
-//                                ratings.add(new Rating((float) ratingValue, reviewText, userId));
-//                            }
-//                        }
-//                    }
-//
-//                    ratingAdapter.notifyDataSetChanged(); // Update RecyclerView
-//                })
-//                .addOnFailureListener(e -> Log.e("Firestore", "Error fetching ratings", e));
-//    }
-
 
     private void setListeners() {
         binding.imageSignUp.setOnClickListener(v -> showSignOutDialog());
@@ -122,23 +92,19 @@ public class MainActivity extends BaseActivity implements ConversionListener {
 
     private void showSignOutDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Sign Out")
-                .setMessage("Are you sure you want to log out of your account?")
-                .setPositiveButton("Yes", (dialog, which) -> {
-                    // Show progress dialog
-                    ProgressDialog progressDialog = new ProgressDialog(this);
-                    progressDialog.setMessage("Signing out...");
-                    progressDialog.setCancelable(false); // Prevents user from dismissing it
-                    progressDialog.show();
+        builder.setTitle("Sign Out").setMessage("Are you sure you want to log out of your account?").setPositiveButton("Yes", (dialog, which) -> {
+            // Show progress dialog
+            ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setMessage("Signing out...");
+            progressDialog.setCancelable(false); // Prevents user from dismissing it
+            progressDialog.show();
 
-                    // Delay sign-out by 1 second
-                    new Handler().postDelayed(() -> {
-                        progressDialog.dismiss(); // Hide progress dialog
-                        SignOut(); // Perform sign-out
-                    }, 1000);
-                })
-                .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
-                .setCancelable(false); // Prevents dismissal by clicking outside or pressing back
+            // Delay sign-out by 1 second
+            new Handler().postDelayed(() -> {
+                progressDialog.dismiss(); // Hide progress dialog
+                SignOut(); // Perform sign-out
+            }, 1000);
+        }).setNegativeButton("No", (dialog, which) -> dialog.dismiss()).setCancelable(false); // Prevents dismissal by clicking outside or pressing back
 
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
@@ -186,7 +152,6 @@ public class MainActivity extends BaseActivity implements ConversionListener {
         database.collection(Constants.KEY_COLLECTION_CONVERSATIONS).whereEqualTo(Constants.KEY_SENDER_ID, preferenceManager.getString(Constants.KEY_USER_ID)).addSnapshotListener(eventListener);
         database.collection(Constants.KEY_COLLECTION_CONVERSATIONS).whereEqualTo(Constants.KEY_RECEIVER_ID, preferenceManager.getString(Constants.KEY_USER_ID)).addSnapshotListener(eventListener);
     }
-
 
     @SuppressLint("NotifyDataSetChanged")
     private final EventListener<QuerySnapshot> eventListener = (value, error) -> {

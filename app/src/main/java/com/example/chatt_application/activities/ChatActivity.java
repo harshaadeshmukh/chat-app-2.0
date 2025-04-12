@@ -390,15 +390,3 @@ public class ChatActivity extends BaseActivity {
         listenAvailabilityOfReceiver();
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-

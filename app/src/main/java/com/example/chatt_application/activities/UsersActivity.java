@@ -2,11 +2,11 @@ package com.example.chatt_application.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 
-
 import androidx.appcompat.app.AppCompatActivity;
-
 
 import com.example.chatt_application.adapters.UserAdapter;
 import com.example.chatt_application.databinding.ActivityUsersBinding;
@@ -24,23 +24,39 @@ public class UsersActivity extends BaseActivity implements UserListener {
 
     private ActivityUsersBinding binding;
     private PreferenceManager preferenceManager;
+    private List<User> users = new ArrayList<>(); // All users
+    private UserAdapter userAdapter; // Adapter reference
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityUsersBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+
         preferenceManager = new PreferenceManager(this);
         setListeners();
         getUsers();
-
     }
 
     private void setListeners() {
         binding.imageBack.setOnClickListener(v -> onBackPressed());
 
-    }
+        binding.editTextSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                filterUsers(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+    }
 
     private void getUsers() {
         loading(true);
@@ -49,7 +65,7 @@ public class UsersActivity extends BaseActivity implements UserListener {
             loading(false);
             String currentUserId = preferenceManager.getString(Constants.KEY_USER_ID);
             if (task.isSuccessful() && task.getResult() != null) {
-                List<User> users = new ArrayList<>();
+                users.clear();
                 for (QueryDocumentSnapshot queryDocumentSnapshot : task.getResult()) {
                     if (currentUserId.equals(queryDocumentSnapshot.getId())) {
                         continue;
@@ -60,14 +76,13 @@ public class UsersActivity extends BaseActivity implements UserListener {
                     user.email = queryDocumentSnapshot.getString(Constants.KEY_EMAIL);
                     user.image = queryDocumentSnapshot.getString(Constants.KEY_IMAGE);
                     user.token = queryDocumentSnapshot.getString(Constants.KEY_FCM_TOKEN);
-
                     user.id = queryDocumentSnapshot.getId();
 
                     users.add(user);
                 }
 
                 if (!users.isEmpty()) {
-                    UserAdapter userAdapter = new UserAdapter(users, this);
+                    userAdapter = new UserAdapter(users, this);
                     binding.usersRecyclerView.setAdapter(userAdapter);
                     binding.usersRecyclerView.setVisibility(View.VISIBLE);
                 } else {
@@ -77,6 +92,19 @@ public class UsersActivity extends BaseActivity implements UserListener {
                 showErrorMessage();
             }
         });
+    }
+
+    private void filterUsers(String query) {
+        List<User> filteredList = new ArrayList<>();
+        for (User user : users) {
+            if (user.name.toLowerCase().contains(query.toLowerCase())) {
+                filteredList.add(user);
+            }
+        }
+
+        if (userAdapter != null) {
+            userAdapter.updateList(filteredList);
+        }
     }
 
     private void showErrorMessage() {
@@ -89,7 +117,6 @@ public class UsersActivity extends BaseActivity implements UserListener {
             binding.progressBar.setVisibility(View.VISIBLE);
         } else {
             binding.progressBar.setVisibility(View.INVISIBLE);
-
         }
     }
 

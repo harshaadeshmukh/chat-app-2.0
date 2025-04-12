@@ -18,7 +18,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,6 +26,7 @@ import com.example.chatt_application.R;
 import com.example.chatt_application.databinding.ActivitySignUpBinding;
 import com.example.chatt_application.utilites.Constants;
 import com.example.chatt_application.utilites.PreferenceManager;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.ByteArrayOutputStream;
@@ -133,32 +133,62 @@ public class SignUpActivity extends AppCompatActivity {
 
     private void signUp() {
         loading(true);
-        FirebaseFirestore database = FirebaseFirestore.getInstance();
-        HashMap<String, Object> user = new HashMap<>();
-        user.put(Constants.KEY_NAME, binding.inputName.getText().toString());
-        user.put(Constants.KEY_EMAIL, binding.inputEmail.getText().toString());
-        user.put(Constants.KEY_PASSWORD, binding.inputPassword.getText().toString());
+//        FirebaseFirestore database = FirebaseFirestore.getInstance();
+//        HashMap<String, Object> user = new HashMap<>();
+//        user.put(Constants.KEY_NAME, binding.inputName.getText().toString());
+//        user.put(Constants.KEY_EMAIL, binding.inputEmail.getText().toString());
+//        user.put(Constants.KEY_PASSWORD, binding.inputPassword.getText().toString());
+//
+//        user.put(Constants.KEY_IMAGE, encodedImage);
+//
+//        database.collection(Constants.KEY_COLLECTION_USERS)
+//                .add(user)
+//                .addOnSuccessListener(documentReference -> {
+//                    loading(false);
+//                    preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN, true);
+//                    preferenceManager.putString(Constants.KEY_USER_ID, documentReference.getId());
+//                    preferenceManager.putString(Constants.KEY_NAME, binding.inputName.getText().toString());
+//
+//                    preferenceManager.putString(Constants.KEY_IMAGE, encodedImage);
+//                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                    startActivity(intent);
+//
+//                })
+//                .addOnFailureListener(exception -> {
+//                    loading(false);
+//                    showToast(exception.getMessage());
+//                });
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(binding.inputEmail.getText().toString(), binding.inputPassword.getText().toString()).addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                loading(false);
+                showToast(task.getException().getMessage());
+                return;
+            }
 
-        user.put(Constants.KEY_IMAGE, encodedImage);
+            // If successful, continue with storing user data in Firestore
+            FirebaseFirestore database = FirebaseFirestore.getInstance();
+            HashMap<String, Object> user = new HashMap<>();
+            user.put(Constants.KEY_NAME, binding.inputName.getText().toString());
+            user.put(Constants.KEY_EMAIL, binding.inputEmail.getText().toString());
+            user.put(Constants.KEY_PASSWORD, binding.inputPassword.getText().toString());
+            user.put(Constants.KEY_IMAGE, encodedImage);
 
-        database.collection(Constants.KEY_COLLECTION_USERS)
-                .add(user)
-                .addOnSuccessListener(documentReference -> {
-                    loading(false);
-                    preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN, true);
-                    preferenceManager.putString(Constants.KEY_USER_ID, documentReference.getId());
-                    preferenceManager.putString(Constants.KEY_NAME, binding.inputName.getText().toString());
+            database.collection(Constants.KEY_COLLECTION_USERS).add(user).addOnSuccessListener(documentReference -> {
+                loading(false);
+                preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN, true);
+                preferenceManager.putString(Constants.KEY_USER_ID, documentReference.getId());
+                preferenceManager.putString(Constants.KEY_NAME, binding.inputName.getText().toString());
+                preferenceManager.putString(Constants.KEY_IMAGE, encodedImage);
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }).addOnFailureListener(exception -> {
+                loading(false);
+                showToast(exception.getMessage());
+            });
+        });
 
-                    preferenceManager.putString(Constants.KEY_IMAGE, encodedImage);
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
-
-                })
-                .addOnFailureListener(exception -> {
-                    loading(false);
-                    showToast(exception.getMessage());
-                });
     }
 
     private String encodeImage(Bitmap bitmap) {
@@ -167,7 +197,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         Bitmap previewBitmap = Bitmap.createScaledBitmap(bitmap, previewWidth, previewHeight, false);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        previewBitmap.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream);
+        previewBitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
 
         byte[] bytes = byteArrayOutputStream.toByteArray();
 
@@ -175,26 +205,23 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
 
-    private final ActivityResultLauncher<Intent> pickImage = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                if (result.getResultCode() == RESULT_OK) {
-                    if (result.getData() != null) {
-                        Uri imageUri = result.getData().getData();
-                        try {
-                            assert imageUri != null;
-                            InputStream inputStream = getContentResolver().openInputStream(imageUri);
-                            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                            binding.imageProfile.setImageBitmap(bitmap);
-                            binding.textAddImage.setVisibility(View.GONE);
-                            encodedImage = encodeImage(bitmap);
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
-                        }
-                    }
+    private final ActivityResultLauncher<Intent> pickImage = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == RESULT_OK) {
+            if (result.getData() != null) {
+                Uri imageUri = result.getData().getData();
+                try {
+                    assert imageUri != null;
+                    InputStream inputStream = getContentResolver().openInputStream(imageUri);
+                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                    binding.imageProfile.setImageBitmap(bitmap);
+                    binding.textAddImage.setVisibility(View.GONE);
+                    encodedImage = encodeImage(bitmap);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
                 }
             }
-    );
+        }
+    });
 
 
     private boolean isValidSignUpDetails() {

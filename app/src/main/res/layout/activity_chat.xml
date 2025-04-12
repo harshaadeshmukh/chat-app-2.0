@@ -116,7 +116,7 @@
         android:layout_height="50dp"
         android:layout_gravity="center"
         app:layout_constraintBottom_toBottomOf="@id/viewBackground"
-
+        android:indeterminateTint="@color/primary"
         app:layout_constraintEnd_toEndOf="@id/viewBackground"
         app:layout_constraintStart_toStartOf="@+id/viewBackground"
         app:layout_constraintTop_toTopOf="@+id/viewBackground" />

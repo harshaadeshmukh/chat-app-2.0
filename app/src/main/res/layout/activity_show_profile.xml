@@ -210,23 +210,26 @@
             android:id="@+id/layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
+            android:layout_gravity="center_vertical"
             android:padding="20dp">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button"
-                android:layout_width="match_parent"
+                android:layout_width="230dp"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/white"
+                android:padding="10dp"
                 android:text="@string/rate_the_chatapp"
-                android:textAllCaps="true"
-                android:textColor="@color/primary_dark"
-                android:textSize="17sp"
-                android:textStyle="bold"
-                app:cornerRadius="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                android:textColor="@color/primary"
+                android:textSize="18sp"
+                app:cornerRadius="59dp"
+                app:icon="@drawable/icc_rate_review"
+                app:iconGravity="textStart"
+                app:iconPadding="10dp"
+                app:iconSize="20dp"
+                app:iconTint="@color/primary_dark"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

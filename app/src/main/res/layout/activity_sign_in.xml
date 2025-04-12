@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:gravity="center_horizontal"
+
         android:padding="20dp"
         android:orientation="vertical">
 
@@ -21,6 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="Welcome back!"
+            android:layout_gravity="center_horizontal"
             android:textColor="@color/primary_text"
             android:textSize="23sp"
             android:textStyle="bold" />
@@ -29,6 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:layout_gravity="center_horizontal"
             android:text="Login to continue"
             android:textColor="@color/secondary_text"
             android:textSize="15sp"
@@ -44,6 +46,7 @@
             android:imeOptions="actionNext"
             android:importantForAutofill="no"
             android:inputType="textEmailAddress"
+            android:layout_gravity="center_horizontal"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
             android:textColor="@color/primary_text"
@@ -51,6 +54,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
+            android:layout_gravity="center_horizontal"
             android:layout_height="wrap_content"
             android:layout_marginTop="19dp">
 
@@ -68,6 +72,8 @@
                 android:textColor="@color/primary_text"
                 android:textSize="18sp" />
 
+
+
             <ImageView
                 android:id="@+id/passwordToggle"
                 android:layout_width="24dp"
@@ -78,6 +84,20 @@
                 android:contentDescription="Toggle Password Visibility"
                 android:src="@drawable/baseline_visibility_off_24" />
         </RelativeLayout>
+
+<!--        <TextView-->
+<!--            android:id="@+id/textForgotPassword"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textColor="@color/error"-->
+<!--            android:textSize="14sp"-->
+<!--            android:textStyle="bold"-->
+<!--            android:layout_marginStart="5dp"-->
+<!--            android:layout_marginTop="5dp"-->
+<!--            android:text="@string/forgot_password"-->
+<!--            android:autoLink="none"-->
+<!--            android:textAppearance="?android:attr/textAppearanceSmall"/>-->
+
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -100,6 +120,8 @@
                 android:id="@+id/progressBar"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
+
+                android:indeterminateTint="@color/primary"
                 android:layout_gravity="center"
                 android:visibility="invisible" />
         </FrameLayout>
@@ -108,6 +130,7 @@
             android:id="@+id/textContentCreateNewAcc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="9dp"
             android:text="@string/create_account_text"
             android:textColor="@color/primary"
@@ -129,21 +152,21 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
                 android:text="What Our Users Say About ChatApp²⋅⁰ 🤗"
                 android:textColor="@color/white"
-                android:textSize="18sp"
+                android:textSize="16sp"
+                android:layout_marginTop="12dp"
                 android:textStyle="bold"
+                android:layout_marginBottom="4dp"
                 android:gravity="center" />
-
-
 
         <!-- Progress Layout wrapping RecyclerView -->
         <FrameLayout
+            android:id="@+id/layoutReviewsContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:padding="14dp">
+            android:padding="1dp">
 
             <!-- RecyclerView -->
             <androidx.recyclerview.widget.RecyclerView
@@ -151,6 +174,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scrollbars="vertical"
+                android:padding="14dp"
                 android:clipToPadding="false" />
 
             <ProgressBar

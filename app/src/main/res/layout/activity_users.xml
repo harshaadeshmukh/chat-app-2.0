@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTint="@color/primary"
     android:animateLayoutChanges="true"
     android:background="@color/primary"
     tools:context=".activities.UsersActivity">
@@ -25,16 +26,54 @@
         app:tint="@color/white" />
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Select User"
+<!--    <androidx.appcompat.widget.AppCompatImageView-->
+<!--        android:id="@+id/imageSearch"-->
+<!--        android:layout_width="45dp"-->
+<!--        android:layout_height="45dp"-->
+<!--        android:layout_marginTop="12dp"-->
+<!--        android:layout_marginRight="16dp"-->
+<!--        android:background="@drawable/background_icon"-->
+<!--        android:padding="9dp"-->
+<!--        android:src="@drawable/baseline_search_24"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:tint="@color/white" />-->
+
+
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Select User"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textSize="17sp"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/imageBack"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="@id/imageBack" />-->
+
+
+    <EditText
+        android:id="@+id/editTextSearch"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="12dp"
+        android:background="@drawable/background_icon"
+        android:hint="Search User"
+        android:inputType="text"
+        android:drawableStart="@drawable/baseline_search_24"
+        android:drawableTint="@color/white"
+        android:drawablePadding="8dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:layout_marginEnd="16dp"
         android:textColor="@color/white"
+        android:textColorHint="@color/white"
         android:textSize="17sp"
-        android:textStyle="bold"
+        android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="@id/imageBack"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imageBack"
         app:layout_constraintTop_toTopOf="@id/imageBack" />
 
 
@@ -62,7 +101,8 @@
             android:id="@+id/progressBar"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/primary" />
 
 
         <TextView
